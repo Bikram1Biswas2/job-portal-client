@@ -2,6 +2,25 @@ import Lottie from "lottie-react";
 import registerLottie from '../../assets/lottie/register.json'
 
 const Register = () => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+
+    const handleRegister = e =>{
+        e.preventDefault()
+
+        const form = e.target 
+        const email = form.email.value 
+        const password = form.password.value 
+        console.log(email,password);
+
+        const validatePassword = (password) => passwordRegex.test(password);
+
+        if (!validatePassword(password)) {
+            alert("Password must be at least 6 characters long, include one uppercase letter, and one number.");
+            return;
+
+    }
+}
+
   return (
     <div className="hero bg-base-200 min-h-screen">
       <div className="hero-content flex-col lg:flex-row-reverse">
@@ -11,7 +30,7 @@ const Register = () => {
         </div>
         <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl pl-6">
         <h1 className="text-5xl font-bold ">Register now!</h1>
-          <form className="card-body">
+          <form onSubmit={handleRegister} className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -19,6 +38,7 @@ const Register = () => {
               <input
                 type="email"
                 placeholder="email"
+                name="email"
                 className="input input-bordered"
                 required
               />
@@ -30,6 +50,7 @@ const Register = () => {
               <input
                 type="password"
                 placeholder="password"
+                name="password"
                 className="input input-bordered"
                 required
               />
@@ -48,5 +69,6 @@ const Register = () => {
     </div>
   );
 };
+
 
 export default Register;
