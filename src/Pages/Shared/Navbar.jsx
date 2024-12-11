@@ -3,7 +3,17 @@ import { Link } from "react-router-dom";
 import AuthContext from "../../Context/AuthContext";
 
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user,signOutUser } = useContext(AuthContext);
+
+  const handleSignOut = ()=>{
+    signOutUser()
+    .then(()=>{
+      console.log('Sign Out Successfully');
+    })
+    .catch((error)=>{
+      console.log(error.message);
+    })
+  }
 
   const items = (
     <>
@@ -51,7 +61,7 @@ const Navbar = () => {
       <div className="navbar-end space-x-3">
         {user ? (
           <>
-            <button className="btn">Sign Out</button>
+            <button onClick={handleSignOut} className="btn">Sign Out</button>
           </>
         ) : (
           <>
