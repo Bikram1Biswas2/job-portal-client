@@ -23,7 +23,7 @@ const JobCard = ({job}) => {
           <p>{description}</p>
           <div className='flex gap-2 flex-wrap'>
             {
-             requirements.map(requirement=><p className='border p-1 rounded-lg hover:text-purple-900 hover:bg-gray-300 hover:cursor-pointer text-center'>{requirement}</p>)
+             requirements.map((requirement,index)=><p key={index} className='border p-1 rounded-lg hover:text-purple-900 hover:bg-gray-300 hover:cursor-pointer text-center'>{requirement}</p>)
             }
           </div>
           <div className="card-actions justify-end items-center">
