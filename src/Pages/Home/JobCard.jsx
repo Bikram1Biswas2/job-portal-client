@@ -1,9 +1,10 @@
 import React from 'react';
 import { BsCurrencyDollar } from 'react-icons/bs';
 import { MdLocationOn } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 
 const JobCard = ({job}) => {
-    const{category,company,company_logo,description,jobType,location,salaryRange,title,requirements}=job
+    const{_id,category,company,company_logo,description,jobType,location,salaryRange,title,requirements}=job
     return (
         <div className="card card-compact bg-base-100 shadow-xl">
         <div className='flex items-center gap-2'>
@@ -27,7 +28,9 @@ const JobCard = ({job}) => {
           </div>
           <div className="card-actions justify-end items-center">
             <p className='flex items-center'>Salary:<BsCurrencyDollar /> {salaryRange.min}-{salaryRange.max}</p>
-            <button className="btn btn-primary">Apply</button>
+           <Link to={`/jobs/${_id}`}>
+           <button className="btn btn-primary">Apply</button>
+           </Link>
           </div>
         </div>
       </div>
