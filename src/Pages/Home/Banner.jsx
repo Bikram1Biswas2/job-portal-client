@@ -15,7 +15,7 @@ const Banner = () => {
             className="max-w-sm rounded-t-[40px] rounded-br-[40px] border-b-4 border-l-4 border-blue-900 shadow-2xl w-[250px]" />
          <motion.img
          animate={{x:[100,150,100]}}
-         transition={{duration:10,repeat:Infinity}}
+         transition={{duration:10,delay:5,repeat:Infinity}}
             src={img2}
             className="max-w-sm rounded-t-[40px] rounded-br-[40px] border-b-4 border-l-4 border-blue-900  shadow-2xl w-[250px]" />
          </div>
