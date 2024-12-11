@@ -1,15 +1,20 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../../Context/AuthContext";
 
 const Navbar = () => {
+  const { user } = useContext(AuthContext);
 
-    const items = <>
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Item 3</a>
-            </li>
+  const items = (
+    <>
+      <li>
+        <a>Item 1</a>
+      </li>
+      <li>
+        <a>Item 3</a>
+      </li>
     </>
+  );
 
   return (
     <div className="navbar bg-base-100">
@@ -35,19 +40,29 @@ const Navbar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-         {items}
+            {items}
           </ul>
         </div>
         <a className="btn btn-ghost text-xl">Job-Portal</a>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
-             {items}
-        </ul>
+        <ul className="menu menu-horizontal px-1">{items}</ul>
       </div>
       <div className="navbar-end space-x-3">
-        <Link to='/register' className="btn">Register</Link>
-        <Link to='/login' className="btn">Sign In</Link>
+        {user ? (
+          <>
+            <button className="btn">Sign Out</button>
+          </>
+        ) : (
+          <>
+            <Link to="/register" className="btn">
+              Register
+            </Link>
+            <Link to="/login" className="btn">
+              Sign In
+            </Link>
+          </>
+        )}
       </div>
     </div>
   );
