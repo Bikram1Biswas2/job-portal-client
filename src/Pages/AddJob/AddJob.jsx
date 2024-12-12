@@ -1,10 +1,39 @@
+import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
 
 
 const AddJob = () => {
+    const {user}= useAuth()
+
+    const handleAddJob = e =>{
+        e.preventDefault()
+
+        const formData = new FormData(e.target)
+        const initialData = Object.fromEntries(formData.entries())
+        const {min,max,currency, ...newJob} = initialData
+        newJob.salaryRange = {min,max,currency}
+        newJob.requirements = newJob.requirements.split('\n')
+        newJob.responsibilities = newJob.responsibilities.split('\n')
+        console.log(newJob);
+
+        fetch('http://localhost:5000/jobs',{
+             method:"POST",
+             headers:{
+                'content-type':'application/json'
+             },
+             body:JSON.stringify(newJob)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            toast.success('New Job Added Successfully')
+        })
+    }
+
     return (
         <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold mb-4">Add Job</h2>
-        <form className="space-y-4">
+        <form onSubmit={handleAddJob} className="space-y-4">
           <div>
             <label className="block font-medium">Job Title</label>
             <input
@@ -64,20 +93,20 @@ const AddJob = () => {
             <div className="flex space-x-2">
               <input
                 type="number"
-                name="salaryRange.min"
+                name="min"
                 placeholder="Min"
                 className="input input-bordered w-1/2"
                 required
               />
               <input
                 type="number"
-                name="salaryRange.max"
+                name="max"
                 placeholder="Max"
                 className="input input-bordered w-1/2"
                 required
               />
                 <select
-            name="salaryRange.currency"
+            name="currency"
             className="select select-bordered w-full mt-2"
             required
           >
@@ -111,17 +140,16 @@ const AddJob = () => {
   
           <div>
             <label className="block font-medium">Requirements (Comma Separated)</label>
-            <input
-              type="text"
-              name="requirements"
-              className="input input-bordered w-full"
-              required
-            />
+            <textarea
+            name="requirements"
+            className="textarea textarea-bordered w-full"
+            required
+          ></textarea>
           </div>
   
           <div>
             <label className="block font-medium">Responsibilities (Comma Separated)</label>
-            <input
+            <textarea
               type="text"
               name="responsibilities"
               className="input input-bordered w-full"
@@ -133,6 +161,7 @@ const AddJob = () => {
             <label className="block font-medium">HR Email</label>
             <input
               type="email"
+              defaultValue={user?.email}
               name="hr_email"
               className="input input-bordered w-full"
               required
