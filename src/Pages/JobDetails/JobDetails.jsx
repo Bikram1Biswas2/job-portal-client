@@ -1,16 +1,17 @@
-import { useLoaderData } from "react-router-dom";
-
+import { Link, useLoaderData } from "react-router-dom";
 
 const JobDetails = () => {
-    const {category,jobType} = useLoaderData()
+  const { _id,category, jobType } = useLoaderData();
 
-    return (
-        <div>
-            <h2>Job Details:{category}</h2>
-            <p>{jobType}</p>
-            <button>Apply</button>
-        </div>
-    );
+  return (
+    <div>
+      <h2>Job Details:{category}</h2>
+      <p>{jobType}</p>
+      <Link to={`/jobApply/${_id}`}>
+        <button className="btn btn-secondary">Apply</button>
+      </Link>
+    </div>
+  );
 };
 
 export default JobDetails;
