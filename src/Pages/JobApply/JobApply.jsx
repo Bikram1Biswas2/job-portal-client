@@ -1,9 +1,13 @@
 import Lottie from 'lottie-react';
 import jobLottie from '../../assets/lottie/jobApply.json'
 import { useParams } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
+import toast from 'react-hot-toast';
 const JobApply = () => {
 
     const {id}= useParams()
+    const {user}= useAuth()
+    console.log(user);
 
     const handleJobApply = e =>{
         e.preventDefault()
@@ -14,6 +18,28 @@ const JobApply = () => {
         const resume = form.resume.value
 
         console.log(linkedin,github,resume);
+
+        const jobApplication = {
+            job_id: id,
+            applicant_email: user.email,
+            linkedin,
+            github,
+            resume
+        }
+        fetch('http://localhost:5000/job-applications',{
+            method:"POST",
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(jobApplication)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data);
+            if(data.insertedId){
+                toast.success('Successfully Apply!')
+            }
+        })
     }
 
     return (
