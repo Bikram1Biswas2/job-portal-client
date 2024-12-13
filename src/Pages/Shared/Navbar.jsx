@@ -27,6 +27,9 @@ const Navbar = () => {
       <li>
         <Link to='/addJob'>Add Job</Link>
       </li>
+      <li>
+        <Link to='/myPostedJobs'>My Posted Jobs</Link>
+      </li>
      
     </>
   );
