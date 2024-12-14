@@ -1,8 +1,10 @@
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 
 const AddJob = () => {
+    const navigate = useNavigate()
     const {user}= useAuth()
 
     const handleAddJob = e =>{
@@ -27,6 +29,7 @@ const AddJob = () => {
         .then(data=>{
             console.log(data);
             toast.success('New Job Added Successfully')
+            navigate('/myPostedJobs')
         })
     }
 
