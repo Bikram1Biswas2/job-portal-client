@@ -16,7 +16,7 @@ const AddJob = () => {
         newJob.salaryRange = {min,max,currency}
         newJob.requirements = newJob.requirements.split('\n')
         newJob.responsibilities = newJob.responsibilities.split('\n')
-        console.log(newJob);
+        console.log(initialData,newJob);
 
         fetch('http://localhost:5000/jobs',{
              method:"POST",

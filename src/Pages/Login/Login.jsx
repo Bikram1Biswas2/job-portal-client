@@ -4,6 +4,7 @@ import { useContext } from "react";
 import AuthContext from "../../Context/AuthContext";
 import SocialLogin from "../Shared/SocialLogin";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const { signInUser } = useContext(AuthContext);
@@ -23,7 +24,14 @@ const Login = () => {
 
     signInUser(email, password)
     .then((result) => {
-      console.log(result.user);
+      console.log(result.user.email);
+      const user ={ email: email}
+
+      axios.post('http://localhost:5000/jwt',user)
+      .then(data=>{
+        console.log(data);
+      })
+
       navigate(from)
     })
     .catch((error) => {
